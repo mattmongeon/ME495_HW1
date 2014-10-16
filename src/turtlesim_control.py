@@ -44,15 +44,12 @@ def timer_callback(event):
     theta_rad = (2.0 * math.pi * time_s) / max_time_s
     delta_theta_rad = (2.0 * math.pi * frame_time_s) / max_time_s
 
-    x_t = 3.0 * math.sin(2.0 * theta_rad)
-    y_t = 3.0 * math.sin(theta_rad)
-
     v_x_t = ((12.0 * math.pi) / max_time_s) * math.cos(2.0 * theta_rad)
     v_y_t = ((6.0 * math.pi) / max_time_s) * math.cos(theta_rad)
 
     twist_msg.linear.x = math.sqrt(v_x_t**2 + v_y_t**2)
 
-    # This is completely unsatisfying, because I wanted this to be solved
+    # This is completely unsatisfying.  I wanted this to be solved
     # more elegantly, but I couldn't figure it out...
     ang_vel_rad_per_s = 2.0 * delta_theta_rad / frame_time_s
     if time_s > (max_time_s * 0.5):
