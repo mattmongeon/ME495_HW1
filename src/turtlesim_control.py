@@ -42,6 +42,7 @@ def timer_callback(event):
     global time_s, control_pub, prev_theta_rad
 
     theta_rad = (2.0 * math.pi * time_s) / max_time_s
+    delta_theta_rad = (2.0 * math.pi * frame_time_s) / max_time_s
 
     x_t = 3.0 * math.sin(2.0 * theta_rad)
     y_t = 3.0 * math.sin(theta_rad)
@@ -53,16 +54,13 @@ def timer_callback(event):
 
     # This is completely unsatisfying, because I wanted this to be solved
     # more elegantly, but I couldn't figure it out...
-    ang_vel_rad_per_s = 2.0 * (theta_rad - prev_theta_rad) / frame_time_s
+    ang_vel_rad_per_s = 2.0 * delta_theta_rad / frame_time_s
     if time_s > (max_time_s * 0.5):
         ang_vel_rad_per_s = -ang_vel_rad_per_s
 
     twist_msg.angular.z = ang_vel_rad_per_s
 
     prev_theta_rad = theta_rad
-
-    print str(time_s) + ", " + ang_vel_rad_per_s
-
 
     time_s += frame_time_s
     if time_s > max_time_s:
