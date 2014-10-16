@@ -61,6 +61,9 @@ def timer_callback(event):
 
     prev_theta_rad = theta_rad
 
+    print str(time_s) + ", " + ang_vel_rad_per_s
+
+
     time_s += frame_time_s
     if time_s > max_time_s:
         time_s = 0.0
