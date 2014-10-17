@@ -35,6 +35,8 @@ def get_angular_velocity_rad_per_s(cycle_pos):
 
 def turtlesim_control():
 
+    global max_time_s
+
     rospy.init_node("turtlesim_control", anonymous=True)
 
     max_time_s = rospy.get_param("~max_time_s", 10.0)
@@ -69,7 +71,7 @@ def timer_callback(event):
     twist_msg.angular.z = get_angular_velocity_rad_per_s(cycle_pos)
 
     time_s += frame_time_s
-    if time_s > max_time_s:
+    if time_s >= max_time_s:
         time_s = 0.0
 
     control_pub.publish(twist_msg)
